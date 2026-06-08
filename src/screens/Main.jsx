@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
+//TAREFA 1
 const MainScreen = () => {
   return (
     <View style={styles.container}>
