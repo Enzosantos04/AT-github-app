@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import MainTabNavigator from "./MainTabNavigator";
+import MainScreen from "../screens/Main";
 
 const Stack = createStackNavigator();
 
@@ -10,12 +10,12 @@ const Stack = createStackNavigator();
 const RootNavigator = () => {
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: true }}
-      initialRouteName="Login"
+      screenOptions={{ headerShown: false }}
+      initialRouteName="GitHub App"
     >
-      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="GitHub App" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="Main" component={MainTabNavigator} />
+      <Stack.Screen name="Main" component={MainScreen} />
     </Stack.Navigator>
   );
 };
