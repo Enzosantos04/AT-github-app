@@ -2,14 +2,18 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./navigation/RootNavigator";
 import { StatusBar } from "expo-status-bar";
+import { AuthProvider } from "./contexts/AuthContext";
 
 //TAREFA 1
 const App = () => {
   return (
-    <NavigationContainer>
-      <StatusBar style="auto" />
-      <RootNavigator />
-    </NavigationContainer>
+    //tarefa 2
+    <AuthProvider>
+      <NavigationContainer>
+        <StatusBar style="auto" />
+        <RootNavigator />
+      </NavigationContainer>
+    </AuthProvider>
   );
 };
 
