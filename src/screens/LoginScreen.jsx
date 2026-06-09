@@ -13,6 +13,7 @@ import { Colors } from "../styles/theme";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
+//TAREFA 1
 const LoginScreen = ({ navigation }) => {
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
