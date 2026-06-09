@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import MainScreen from "../screens/Main";
+import TabNavigator from "./TabNavigator";
 
 const Stack = createStackNavigator();
 
@@ -15,7 +15,7 @@ const RootNavigator = () => {
     >
       <Stack.Screen name="GitHub App" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Screen name="Main" component={TabNavigator} />
     </Stack.Navigator>
   );
 };
