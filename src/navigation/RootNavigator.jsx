@@ -3,9 +3,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import TabNavigator from "./TabNavigator";
+import { useAuth } from "../context/AuthContext";
 
 const Stack = createStackNavigator();
-
+const { userToken, isLoading } = useAuth();
 //TAREFA 1
 const RootNavigator = () => {
   return (
@@ -13,9 +14,14 @@ const RootNavigator = () => {
       screenOptions={{ headerShown: false }}
       initialRouteName="GitHub App"
     >
-      <Stack.Screen name="GitHub App" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="Main" component={TabNavigator} />
+      {userToken ? (
+        <Stack.Screen name="Main" component={TabNavigator} />
+      ) : (
+        <>
+          <Stack.Screen name="GitHub App" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+        </>
+      )}
     </Stack.Navigator>
   );
 };
