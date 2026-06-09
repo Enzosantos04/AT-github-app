@@ -44,3 +44,4 @@ yarn-error.*
 DESIGN.md
 PRODUCT.md
 .impeccable
+.env
