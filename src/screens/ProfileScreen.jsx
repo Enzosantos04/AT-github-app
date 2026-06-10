@@ -7,15 +7,14 @@ import { Colors } from "../styles/theme";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { useAuth } from "../context/AuthContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //TAREFA 4
 const ProfileScreen = () => {
-  const { signOut, updateToken } = useAuth();
-  const [userToken, setUserToken] = useState("");
+  const { signOut, updateToken, userToken } = useAuth();
+  const [userNewToken, setUserNewToken] = useState(userToken);
 
   function handleUpdateToken() {
-    updateToken(userToken);
+    updateToken(userNewToken);
   }
 
   return (
@@ -47,8 +46,9 @@ const ProfileScreen = () => {
         <Input
           label="Personal Access Token"
           placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-          value={userToken}
-          onChangeText={setUserToken}
+          value={userNewToken}
+          onChangeText={setUserNewToken}
+          secureTextEntry
         />
 
         <Button title="Update Token" onPress={handleUpdateToken} />
