@@ -12,6 +12,7 @@ import TabNavigator from "./TabNavigator";
 import { Colors } from "../styles/theme";
 import { drawerStyles as styles } from "../styles/DrawerNavigator.styles";
 
+//TAREFA 6
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props) => {
