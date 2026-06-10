@@ -6,9 +6,18 @@ import { localStyles } from "../styles/ProfileScreen.styles";
 import { Colors } from "../styles/theme";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import { useAuth } from "../context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //TAREFA 4
 const ProfileScreen = () => {
+  const { signOut, updateToken } = useAuth();
+  const [userToken, setUserToken] = useState("");
+
+  function handleUpdateToken() {
+    updateToken(userToken);
+  }
+
   return (
     <ScrollView
       style={globalStyles.container}
@@ -38,12 +47,11 @@ const ProfileScreen = () => {
         <Input
           label="Personal Access Token"
           placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-          value=""
-          onChangeText={() => {}}
-          secureTextEntry
+          value={userToken}
+          onChangeText={setUserToken}
         />
 
-        <Button title="Update Token" onPress={() => {}} />
+        <Button title="Update Token" onPress={handleUpdateToken} />
 
         <Text style={localStyles.helperText}>
           You can generate a new token in your GitHub Developer Settings.
@@ -54,7 +62,7 @@ const ProfileScreen = () => {
         <Button
           title="Sign Out"
           type="secondary"
-          onPress={() => {}}
+          onPress={signOut}
           icon={<Octicons name="sign-out" size={16} color={Colors.primary} />}
         />
       </View>
