@@ -12,14 +12,16 @@ import { styles } from "../styles/LoginScreen.styles";
 import { Colors } from "../styles/theme";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import { useAuth } from "../context/AuthContext";
 
 //TAREFA 1
 const LoginScreen = ({ navigation }) => {
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
+  const { signIn } = useAuth();
 
   const handleLogin = () => {
-    navigation.navigate("Main");
+    signIn(token);
   };
 
   return (
