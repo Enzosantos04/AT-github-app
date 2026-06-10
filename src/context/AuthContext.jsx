@@ -28,8 +28,15 @@ export const AuthProvider = ({ children }) => {
     loadStorageData();
   }, []);
 
+  const updateToken = async (token) => {
+    setUserToken(token);
+    await AsyncStorage.setItem("userToken", token);
+  };
+
   return (
-    <AuthContext.Provider value={{ userToken, isLoading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ userToken, isLoading, signIn, signOut, updateToken }}
+    >
       {children}
     </AuthContext.Provider>
   );
