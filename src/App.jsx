@@ -9,10 +9,12 @@ const App = () => {
   return (
     //tarefa 2
     <AuthProvider>
-      <NavigationContainer>
-        <StatusBar style="auto" />
-        <RootNavigator />
-      </NavigationContainer>
+      <GithubProvider>
+        <NavigationContainer>
+          <StatusBar style="auto" />
+          <RootNavigator />
+        </NavigationContainer>
+      </GithubProvider>
     </AuthProvider>
   );
 };
