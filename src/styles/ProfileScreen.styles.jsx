@@ -21,6 +21,12 @@ export const localStyles = StyleSheet.create({
     borderColor: Colors.border,
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
+  },
+  avatar: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
   userName: {
     fontSize: 22,
