@@ -6,9 +6,10 @@ import TabNavigator from "./TabNavigator";
 import { useAuth } from "../context/AuthContext";
 
 const Stack = createStackNavigator();
-const { userToken, isLoading } = useAuth();
+
 //TAREFA 1
 const RootNavigator = () => {
+  const { userToken, isLoading } = useAuth();
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
