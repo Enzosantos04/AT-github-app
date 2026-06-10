@@ -18,12 +18,12 @@ export const GithubProvider = ({ children }) => {
     }
   }, [userToken]);
 
-  const fetchUserData = async (token) => {
+  const fetchUserData = async (userToken) => {
     setIsLoading(true);
     try {
       const response = await fetch("https://api.github.com/user", {
         headers: {
-          Authorization: `token ${token}`,
+          Authorization: `token ${userToken}`,
         },
       });
       const data = await response.json();
@@ -35,12 +35,12 @@ export const GithubProvider = ({ children }) => {
     }
   };
 
-  const fetchUserRepos = async (token) => {
+  const fetchUserRepos = async (userToken) => {
     setIsLoading(true);
     try {
       const response = await fetch("https://api.github.com/user/repos", {
         headers: {
-          Authorization: `token ${token}`,
+          Authorization: `token ${userToken}`,
         },
       });
       const data = await response.json();
@@ -52,12 +52,12 @@ export const GithubProvider = ({ children }) => {
     }
   };
 
-  const fetchIssues = async (token) => {
+  const fetchIssues = async (userToken) => {
     setIsLoading(true);
     try {
       const response = await fetch("https://api.github.com/issues", {
         headers: {
-          Authorization: `token ${token}`,
+          Authorization: `token ${userToken}`,
         },
       });
       const data = await response.json();
