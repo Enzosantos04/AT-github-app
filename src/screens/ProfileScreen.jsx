@@ -7,10 +7,13 @@ import { Colors } from "../styles/theme";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { useAuth } from "../context/AuthContext";
+import { useGithubContext } from "../context/githubContext";
+import { Image } from "react-native";
 
 //TAREFA 4
 const ProfileScreen = () => {
   const { signOut, updateToken, userToken } = useAuth();
+  const { userData, isLoading } = useGithubContext();
   const [userNewToken, setUserNewToken] = useState(userToken);
 
   function handleUpdateToken() {
@@ -25,11 +28,22 @@ const ProfileScreen = () => {
       <View style={localStyles.header}>
         <View style={localStyles.avatarContainer}>
           <View style={localStyles.avatarPlaceholder}>
-            <Octicons name="person" size={60} color={Colors.inkMuted} />
+            {userData?.avatar_url ? (
+              <Image
+                source={{ uri: userData.avatar_url }}
+                style={localStyles.avatar}
+              />
+            ) : (
+              <Octicons name="person" size={60} color={Colors.inkMuted} />
+            )}
           </View>
         </View>
-        <Text style={localStyles.userName}>GitHub User</Text>
-        <Text style={localStyles.userHandle}>@username_placeholder</Text>
+        <Text style={localStyles.userName}>
+          {userData?.name || "GitHub User"}
+        </Text>
+        <Text style={localStyles.userHandle}>
+          {userData?.login ? `@${userData.login}` : "@username"}
+        </Text>
       </View>
 
       <View style={localStyles.configCard}>
@@ -51,7 +65,11 @@ const ProfileScreen = () => {
           secureTextEntry
         />
 
-        <Button title="Update Token" onPress={handleUpdateToken} />
+        <Button
+          title="Update Token"
+          onPress={handleUpdateToken}
+          loading={isLoading}
+        />
 
         <Text style={localStyles.helperText}>
           You can generate a new token in your GitHub Developer Settings.
