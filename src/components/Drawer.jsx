@@ -1,5 +1,8 @@
 import React from "react";
-import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Octicons } from "@expo/vector-icons";
 import { useGithubContext } from "../context/githubContext";
