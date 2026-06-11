@@ -36,16 +36,19 @@ export const GithubProvider = ({ children }) => {
     }
   };
 
-  const fetchUserRepos = async (userToken) => {
+  const fetchUserRepos = async (userToken, page = 1) => {
     setIsLoading(true);
     try {
-      const response = await fetch("https://api.github.com/user/repos", {
-        headers: {
-          Authorization: `token ${userToken}`,
+      const response = await fetch(
+        `https://api.github.com/user/repos?page=${page}`,
+        {
+          headers: {
+            Authorization: `token ${userToken}`,
+          },
         },
-      });
+      );
       const data = await response.json();
-      setRepos(data);
+      setRepos((prevRepos) => (page === 1 ? data : [...prevRepos, ...data]));
     } catch (error) {
       console.error("Error fetching user repos:", error);
     } finally {
