@@ -17,6 +17,7 @@ export const GithubProvider = ({ children }) => {
   const [hasMoreIssues, setHasMoreIssues] = useState(true);
   const [isFetchingMoreIssues, setIsFetchingMoreIssues] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isRefreshingIssues, setIsRefreshingIssues] = useState(false);
 
   useEffect(() => {
     if (userToken) {
@@ -125,6 +126,12 @@ export const GithubProvider = ({ children }) => {
     setIsRefreshing(false);
   };
 
+  const refreshIssues = async () => {
+    setIsRefreshingIssues(true);
+    await fetchIssues(userToken, 1);
+    setIsRefreshingIssues(false);
+  };
+
   return (
     <githubContext.Provider
       value={{
@@ -144,6 +151,8 @@ export const GithubProvider = ({ children }) => {
         issuesPage,
         refreshRepos,
         isRefreshing,
+        refreshIssues,
+        isRefreshingIssues,
       }}
     >
       {children}
