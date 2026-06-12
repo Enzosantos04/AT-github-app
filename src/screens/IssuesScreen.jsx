@@ -7,8 +7,14 @@ import { useGithubContext } from "../context/githubContext";
 import IssuesList from "../components/IssuesList";
 //TAREFA 1
 const IssuesScreen = () => {
-  const { issues, isLoading, loadMoreIssues, isFetchingMoreIssues } =
-    useGithubContext();
+  const {
+    issues,
+    isLoading,
+    loadMoreIssues,
+    isFetchingMoreIssues,
+    isRefreshingIssues,
+    refreshIssues,
+  } = useGithubContext();
   return (
     <View style={styles.container}>
       <View style={styles.headerSection}>
@@ -21,6 +27,8 @@ const IssuesScreen = () => {
         isLoading={isLoading}
         loadMoreIssues={loadMoreIssues}
         isFetchingMoreIssues={isFetchingMoreIssues}
+        isRefreshingIssues={isRefreshingIssues}
+        refreshIssues={refreshIssues}
       />
     </View>
   );
