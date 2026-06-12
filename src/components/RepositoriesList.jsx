@@ -5,7 +5,14 @@ import { repoStyles } from "../styles/RepositoriesScreen.styles";
 import { styles } from "../styles/Main.styles";
 import { Colors } from "../styles/theme";
 
-const RepositoriesList = ({ repos, isLoading, loadMore, isFetchingMore }) => {
+const RepositoriesList = ({
+  repos,
+  isLoading,
+  loadMore,
+  isFetchingMore,
+  isRefreshing,
+  refreshRepos,
+}) => {
   const renderRepoItem = ({ item }) => (
     <View style={repoStyles.repoCard}>
       <View style={repoStyles.headerRow}>
@@ -56,7 +63,7 @@ const RepositoriesList = ({ repos, isLoading, loadMore, isFetchingMore }) => {
       {isLoading ? (
         <View style={repoStyles.loadingContainer}>
           <ActivityIndicator size="large" color={Colors.primary} />
-          <Text style={repoStyles.loadingText}>Fetching repositories...</Text>
+          <Text style={repoStyles.loadingText}>Finding repositories...</Text>
         </View>
       ) : repos && repos.length > 0 ? (
         <FlatList
@@ -68,6 +75,8 @@ const RepositoriesList = ({ repos, isLoading, loadMore, isFetchingMore }) => {
           onEndReached={loadMore}
           onEndReachedThreshold={0.5}
           ListFooterComponent={renderFooter}
+          onRefresh={refreshRepos}
+          refreshing={isRefreshing}
         />
       ) : (
         <View style={styles.card}>
