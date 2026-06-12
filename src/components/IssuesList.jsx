@@ -1,8 +1,11 @@
 import React from "react";
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import { Octicons } from "@expo/vector-icons";
+import { Swipeable, RectButton } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 import { styles } from "../styles/Main.styles";
 import { issueStyles } from "../styles/IssuesScreen.styles";
+import { swipeStyles } from "../styles/SwipeableActions.styles.jsx";
 import { Colors } from "../styles/theme";
 
 const IssuesList = ({
@@ -13,35 +16,55 @@ const IssuesList = ({
   isRefreshingIssues,
   refreshIssues,
 }) => {
-  const renderIssueItem = ({ item }) => (
-    <View style={issueStyles.issueCard}>
-      <View style={issueStyles.headerRow}>
-        <View style={issueStyles.iconContainer}>
-          <Octicons
-            name="issue-opened"
-            size={18}
-            color={item.state === "open" ? "#3fb950" : "#a371f7"}
-          />
-        </View>
-        <View style={issueStyles.contentContainer}>
-          <Text style={issueStyles.title}>{item.title}</Text>
-          {item.body ? (
-            <Text style={issueStyles.description} numberOfLines={2}>
-              {item.body.replace(/[\n\r]+/g, " ")}
-            </Text>
-          ) : null}
-        </View>
-      </View>
+  const navigation = useNavigation();
 
-      <View style={issueStyles.footerRow}>
-        <Text style={issueStyles.repoInfo}>
-          {item.repository?.full_name || "GitHub"}
-        </Text>
-        <View style={issueStyles.badge}>
-          <Text style={issueStyles.badgeText}>#{item.number}</Text>
+  const renderRightActions = (item) => {
+    return (
+      <RectButton
+        style={[swipeStyles.rightAction, { borderRadius: 8 }]}
+        onPress={() => navigation.navigate("IssueDetail", { issue: item })}
+      >
+        <Octicons name="info" size={24} color={Colors.white} />
+        <Text style={swipeStyles.actionText}>Detalhes</Text>
+      </RectButton>
+    );
+  };
+
+  const renderIssueItem = ({ item }) => (
+    <Swipeable
+      renderRightActions={() => renderRightActions(item)}
+      friction={2}
+      rightThreshold={40}
+    >
+      <View style={issueStyles.issueCard}>
+        <View style={issueStyles.headerRow}>
+          <View style={issueStyles.iconContainer}>
+            <Octicons
+              name="issue-opened"
+              size={18}
+              color={item.state === "open" ? "#3fb950" : "#a371f7"}
+            />
+          </View>
+          <View style={issueStyles.contentContainer}>
+            <Text style={issueStyles.title}>{item.title}</Text>
+            {item.body ? (
+              <Text style={issueStyles.description} numberOfLines={2}>
+                {item.body.replace(/[\n\r]+/g, " ")}
+              </Text>
+            ) : null}
+          </View>
+        </View>
+
+        <View style={issueStyles.footerRow}>
+          <Text style={issueStyles.repoInfo}>
+            {item.repository?.full_name || "GitHub"}
+          </Text>
+          <View style={issueStyles.badge}>
+            <Text style={issueStyles.badgeText}>#{item.number}</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </Swipeable>
   );
 
   const renderFooter = () => {

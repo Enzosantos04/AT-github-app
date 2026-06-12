@@ -1,0 +1,74 @@
+import React from "react";
+import { View, Text, Image, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useRoute } from "@react-navigation/native";
+import { Octicons } from "@expo/vector-icons";
+import { styles } from "../styles/RepositoryDetailScreen.styles";
+import { Colors } from "../styles/theme";
+
+const RepositoryDetailScreen = () => {
+  const route = useRoute();
+  const { repository } = route.params;
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.header}>
+          <Image
+            source={{ uri: repository.owner.avatar_url }}
+            style={styles.avatar}
+          />
+          <Text style={styles.repoName}>{repository.name}</Text>
+          <Text style={styles.ownerName}>{repository.owner.login}</Text>
+        </View>
+
+        <Text style={styles.description}>
+          {repository.description || "Sem descrição disponível."}
+        </Text>
+
+        <View style={styles.metricsGrid}>
+          <View style={styles.metricCard}>
+            <Octicons name="star" size={20} color={Colors.primary} />
+            <Text style={styles.metricValue}>{repository.stargazers_count}</Text>
+            <Text style={styles.metricLabel}>Stars</Text>
+          </View>
+
+          <View style={styles.metricCard}>
+            <Octicons name="repo-forked" size={20} color={Colors.primary} />
+            <Text style={styles.metricValue}>{repository.forks_count}</Text>
+            <Text style={styles.metricLabel}>Forks</Text>
+          </View>
+
+          <View style={styles.metricCard}>
+            <Octicons name="issue-opened" size={20} color={Colors.primary} />
+            <Text style={styles.metricValue}>{repository.open_issues_count}</Text>
+            <Text style={styles.metricLabel}>Issues</Text>
+          </View>
+
+          <View style={styles.metricCard}>
+            <Octicons name="eye" size={20} color={Colors.primary} />
+            <Text style={styles.metricValue}>{repository.watchers_count}</Text>
+            <Text style={styles.metricLabel}>Watchers</Text>
+          </View>
+        </View>
+
+        <View style={styles.footer}>
+          <View style={styles.infoRow}>
+            <Octicons name="code" size={16} color={Colors.inkMuted} />
+            <Text style={styles.infoText}>
+              Linguagem: {repository.language || "N/A"}
+            </Text>
+          </View>
+          <View style={styles.infoRow}>
+            <Octicons name="calendar" size={16} color={Colors.inkMuted} />
+            <Text style={styles.infoText}>
+              Criado em: {new Date(repository.created_at).toLocaleDateString()}
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default RepositoryDetailScreen;
