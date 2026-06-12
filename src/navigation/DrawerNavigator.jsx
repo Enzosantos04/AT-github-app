@@ -4,6 +4,9 @@ import { Octicons } from "@expo/vector-icons";
 import TabNavigator from "./TabNavigator";
 import { Colors } from "../styles/theme";
 import CustomDrawerContent from "../components/Drawer";
+import RepositoriesScreen from "../screens/RepositoriesScreen";
+import IssuesScreen from "../screens/IssuesScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 //TAREFA 6
 const Drawer = createDrawerNavigator();
@@ -50,6 +53,36 @@ const DrawerNavigator = () => {
         options={{
           drawerIcon: ({ color }) => (
             <Octicons name="home" size={20} color={color} />
+          ),
+          headerTitle: "GitHub App",
+        }}
+      />
+      <Drawer.Screen
+        name="Repositories"
+        component={RepositoriesScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <Octicons name="repo" size={20} color={color} />
+          ),
+          headerTitle: "GitHub App",
+        }}
+      />
+      <Drawer.Screen
+        name="Issues"
+        component={IssuesScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <Octicons name="issue-opened" size={20} color={color} />
+          ),
+          headerTitle: "GitHub App",
+        }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <Octicons name="person" size={20} color={color} />
           ),
           headerTitle: "GitHub App",
         }}
