@@ -1,9 +1,10 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import { Alert } from "react-native";
 import { useAuth } from "./AuthContext";
 
 const githubContext = createContext();
 
-//TAREFA 5
+// TAREFA 5 & 15
 export const GithubProvider = ({ children }) => {
   const { userToken } = useAuth();
   const [userData, setUserData] = useState(null);
@@ -18,6 +19,7 @@ export const GithubProvider = ({ children }) => {
   const [isFetchingMoreIssues, setIsFetchingMoreIssues] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isRefreshingIssues, setIsRefreshingIssues] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (userToken) {
@@ -29,16 +31,23 @@ export const GithubProvider = ({ children }) => {
 
   const fetchUserData = async (userToken) => {
     setIsLoading(true);
+    setError(null);
     try {
       const response = await fetch("https://api.github.com/user", {
         headers: {
           Authorization: `token ${userToken}`,
         },
       });
+
+      if (!response.ok) {
+        throw new Error("Não foi possível carregar os dados do perfil.");
+      }
+
       const data = await response.json();
       setUserData(data);
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      setError(error.message);
+      Alert.alert("Erro de Perfil", error.message);
     } finally {
       setIsLoading(false);
     }
@@ -51,6 +60,7 @@ export const GithubProvider = ({ children }) => {
     } else {
       setIsFetchingMore(true);
     }
+    setError(null);
 
     try {
       const response = await fetch(
@@ -61,6 +71,11 @@ export const GithubProvider = ({ children }) => {
           },
         },
       );
+
+      if (!response.ok) {
+        throw new Error("Erro ao carregar repositórios. Verifique sua conexão.");
+      }
+
       const data = await response.json();
 
       if (data.length < 10) {
@@ -70,7 +85,10 @@ export const GithubProvider = ({ children }) => {
       setRepos((prevRepos) => (page === 1 ? data : [...prevRepos, ...data]));
       setRepoPage(page);
     } catch (error) {
-      console.error("Error fetching user repos:", error);
+      setError(error.message);
+      if (page === 1) {
+        Alert.alert("Erro de Repositórios", error.message);
+      }
     } finally {
       setIsLoading(false);
       setIsFetchingMore(false);
@@ -90,6 +108,8 @@ export const GithubProvider = ({ children }) => {
     } else {
       setIsFetchingMoreIssues(true);
     }
+    setError(null);
+
     try {
       const response = await fetch(
         `https://api.github.com/user/issues?page=${page}&per_page=10&filter=all&state=all`,
@@ -99,6 +119,11 @@ export const GithubProvider = ({ children }) => {
           },
         },
       );
+
+      if (!response.ok) {
+        throw new Error("Erro ao carregar issues. Tente novamente mais tarde.");
+      }
+
       const data = await response.json();
       if (data.length < 10) {
         setHasMoreIssues(false);
@@ -107,7 +132,10 @@ export const GithubProvider = ({ children }) => {
       setIssues((prevIssues) => (page === 1 ? data : [...prevIssues, ...data]));
       setIssuesPage(page);
     } catch (error) {
-      console.error("Error fetching issues:", error);
+      setError(error.message);
+      if (page === 1) {
+        Alert.alert("Erro de Issues", error.message);
+      }
     } finally {
       setIsLoading(false);
       setIsFetchingMoreIssues(false);
@@ -153,6 +181,8 @@ export const GithubProvider = ({ children }) => {
         isRefreshing,
         refreshIssues,
         isRefreshingIssues,
+        error,
+        clearError: () => setError(null),
       }}
     >
       {children}
