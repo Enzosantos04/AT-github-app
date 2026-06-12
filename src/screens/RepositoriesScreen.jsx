@@ -7,7 +7,8 @@ import ProgressBar from "../components/ProgressBar";
 
 //TAREFA 7
 const RepositoriesScreen = () => {
-  const { repos, isLoading, useData } = useGithubContext();
+  const { repos, isLoading, userData, loadMoreRepos, isFetchingMore } =
+    useGithubContext();
 
   return (
     <View style={styles.container}>
@@ -15,12 +16,17 @@ const RepositoriesScreen = () => {
         <Text style={styles.title}>Repositories</Text>
         <ProgressBar
           current={repos.length}
-          total={useData?.public_repos || 0}
+          total={userData?.public_repos || 0}
         />
         <Text style={styles.subtitle}>Manage your GitHub projects</Text>
       </View>
 
-      <RepositoriesList repos={repos} isLoading={isLoading} />
+      <RepositoriesList
+        repos={repos}
+        isLoading={isLoading}
+        loadMore={loadMoreRepos}
+        isFetchingMore={isFetchingMore}
+      />
     </View>
   );
 };
