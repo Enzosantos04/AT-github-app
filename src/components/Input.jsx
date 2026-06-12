@@ -1,8 +1,15 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { Colors } from '../styles/theme';
+import React from "react";
+import { View, Text, TextInput, StyleSheet } from "react-native";
+import { Colors } from "../styles/theme";
 
-const Input = ({ label, placeholder, value, onChangeText, secureTextEntry, autoCapitalize = 'none' }) => {
+const Input = ({
+  label,
+  placeholder,
+  value,
+  onChangeText,
+  secureTextEntry,
+  autoCapitalize = "none",
+}) => {
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
@@ -22,12 +29,12 @@ const Input = ({ label, placeholder, value, onChangeText, secureTextEntry, autoC
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
     marginBottom: 16,
   },
   label: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
     color: Colors.ink,
     marginBottom: 6,
   },
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: 14,
     color: Colors.ink,
-    backgroundColor: Colors.background, // Darker input background
+    backgroundColor: Colors.background,
   },
 });
 
