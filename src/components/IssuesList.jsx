@@ -10,6 +10,8 @@ const IssuesList = ({
   isLoading,
   loadMoreIssues,
   isFetchingMoreIssues,
+  isRefreshingIssues,
+  refreshIssues,
 }) => {
   const renderIssueItem = ({ item }) => (
     <View style={issueStyles.issueCard}>
@@ -70,6 +72,8 @@ const IssuesList = ({
           onEndReached={loadMoreIssues}
           onEndReachedThreshold={0.5}
           ListFooterComponent={renderFooter}
+          onRefresh={refreshIssues}
+          refreshing={isRefreshingIssues}
         />
       ) : (
         <View style={styles.card}>
