@@ -5,7 +5,7 @@ import { repoStyles } from "../styles/RepositoriesScreen.styles";
 import { styles } from "../styles/Main.styles";
 import { Colors } from "../styles/theme";
 
-const RepositoriesList = ({ repos, isLoading }) => {
+const RepositoriesList = ({ repos, isLoading, loadMore, isFetchingMore }) => {
   const renderRepoItem = ({ item }) => (
     <View style={repoStyles.repoCard}>
       <View style={repoStyles.headerRow}>
@@ -42,6 +42,15 @@ const RepositoriesList = ({ repos, isLoading }) => {
     </View>
   );
 
+  const renderFooter = () => {
+    if (!isFetchingMore) return null;
+    return (
+      <View style={{ paddingVertical: 20 }}>
+        <ActivityIndicator size="small" color={Colors.primary} />
+      </View>
+    );
+  };
+
   return (
     <>
       {isLoading ? (
@@ -56,6 +65,9 @@ const RepositoriesList = ({ repos, isLoading }) => {
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={repoStyles.listContainer}
           showsVerticalScrollIndicator={false}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={renderFooter}
         />
       ) : (
         <View style={styles.card}>
