@@ -60,7 +60,6 @@ const ProfileScreen = () => {
         <Input
           label="Personal Access Token"
           placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-          value={userNewToken}
           onChangeText={setUserNewToken}
           secureTextEntry
         />

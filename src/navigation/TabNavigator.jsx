@@ -13,7 +13,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerShown: false, // We use custom headers in screens
+        headerShown: false,
         tabBarStyle: {
           backgroundColor: Colors.surface,
           borderTopWidth: 1,
