@@ -56,7 +56,7 @@ const IssuesList = ({
       {isLoading ? (
         <View style={issueStyles.loadingContainer}>
           <ActivityIndicator size="large" color={Colors.primary} />
-          <Text style={issueStyles.loadingText}>Fetching issues...</Text>
+          <Text style={issueStyles.loadingText}>Finding issues...</Text>
         </View>
       ) : issues && issues.length > 0 ? (
         <FlatList
