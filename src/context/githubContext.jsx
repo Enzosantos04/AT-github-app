@@ -9,16 +9,19 @@ export const GithubProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [repos, setRepos] = useState([]);
   const [repoPage, setRepoPage] = useState(1);
+  const [issuesPage, setIssuesPage] = useState(1);
   const [hasMoreRepos, setHasMoreRepos] = useState(true);
   const [issues, setIssues] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const [hasMoreIssues, setHasMoreIssues] = useState(true);
+  const [isFetchingMoreIssues, setIsFetchingMoreIssues] = useState(false);
 
   useEffect(() => {
     if (userToken) {
       fetchUserData(userToken);
       fetchUserRepos(userToken, 1);
-      fetchIssues(userToken);
+      fetchIssues(userToken, 1);
     }
   }, [userToken]);
 
@@ -78,20 +81,40 @@ export const GithubProvider = ({ children }) => {
     }
   };
 
-  const fetchIssues = async (userToken) => {
-    setIsLoading(true);
+  const fetchIssues = async (userToken, page = 1) => {
+    if (page === 1) {
+      setIsLoading(true);
+      setHasMoreIssues(true);
+    } else {
+      setIsFetchingMoreIssues(true);
+    }
     try {
-      const response = await fetch("https://api.github.com/issues", {
-        headers: {
-          Authorization: `token ${userToken}`,
+      const response = await fetch(
+        `https://api.github.com/user/issues?page=${page}&per_page=10&filter=all&state=all`,
+        {
+          headers: {
+            Authorization: `token ${userToken}`,
+          },
         },
-      });
+      );
       const data = await response.json();
-      setIssues(data);
+      if (data.length < 10) {
+        setHasMoreIssues(false);
+      }
+
+      setIssues((prevIssues) => (page === 1 ? data : [...prevIssues, ...data]));
+      setIssuesPage(page);
     } catch (error) {
       console.error("Error fetching issues:", error);
     } finally {
       setIsLoading(false);
+      setIsFetchingMoreIssues(false);
+    }
+  };
+
+  const loadMoreIssues = () => {
+    if (!isFetchingMoreIssues && hasMoreIssues && userToken) {
+      fetchIssues(userToken, issuesPage + 1);
     }
   };
 
@@ -101,6 +124,7 @@ export const GithubProvider = ({ children }) => {
         fetchUserData,
         fetchUserRepos,
         loadMoreRepos,
+        loadMoreIssues,
         fetchIssues,
         userData,
         repos,
@@ -108,6 +132,9 @@ export const GithubProvider = ({ children }) => {
         isLoading,
         isFetchingMore,
         hasMoreRepos,
+        isFetchingMoreIssues,
+        hasMoreIssues,
+        issuesPage,
       }}
     >
       {children}
