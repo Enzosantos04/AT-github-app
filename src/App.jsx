@@ -12,7 +12,7 @@ const App = () => {
     <AuthProvider>
       <GithubProvider>
         <NavigationContainer>
-          <StatusBar style="auto" />
+          <StatusBar style="light" />
           <RootNavigator />
         </NavigationContainer>
       </GithubProvider>
