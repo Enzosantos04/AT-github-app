@@ -1,97 +1,97 @@
 # AT GitHub App 🚀
 
-Aplicativo mobile acadêmico em React Native desenvolvido com Expo e JavaScript, projetado para interagir diretamente com a API REST oficial do GitHub.
+Academic React Native mobile application built with Expo and JavaScript, designed to interface directly with the official GitHub REST API.
 
 ---
 
-## 📋 Sumário
+## 📋 Table of Contents
 
-- [Recursos Principais](#-recursos-principais)
-- [🛠️ Tecnologias Utilizadas](#️-tecnologias-utilizadas)
-- [📁 Estrutura do Projeto](#-estrutura-do-projeto)
-- [🚀 Como Executar](#-como-executar)
-- [⚙️ Configuração e Autenticação](#️-configuração-e-autenticação)
-
----
-
-## ✨ Recursos Principais
-
-- **Autenticação Segura:** Autenticação local simplificada integrada com o Personal Access Token (PAT) do GitHub para comunicação direta com a API REST oficial.
-- **Exploração de Repositórios:**
-  - Listagem em tempo real de repositórios do usuário.
-  - Paginação sob demanda (_lazy loading_ / scroll infinito).
-  - Gestos de _pull-to-refresh_ para recarregar as listas.
-  - Tela de detalhes completa exibindo estrelas, forks, issues abertas e descrição do projeto.
-- **Gerenciador de Issues:**
-  - Visualização integrada de bugs, tarefas e melhorias.
-  - Barra de progresso dinâmica que reflete a quantidade de issues carregadas.
-  - Ações interativas de swipe para visualizar detalhes específicos de uma issue.
-- **Layout Responsivo & Fluido:** Menus deslizantes dinâmicos (Drawer) e navegação por abas inferiores (Tabs) usando o React Navigation v7.
+- [Key Features](#-key-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📁 Folder Structure](#-folder-structure)
+- [🚀 Getting Started](#-getting-started)
+- [⚙️ Setup & Authentication](#️-setup--authentication)
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## ✨ Key Features
 
-O projeto foi construído usando o ecossistema moderno de desenvolvimento híbrido:
+- **Secure Authentication:** Simple local authentication combined with GitHub's Personal Access Token (PAT) for direct secure requests to the official GitHub API.
+- **Repository Explorer:**
+  - Real-time list of the user's repositories.
+  - Infinite scrolling / pagination on-demand (_lazy loading_).
+  - _Pull-to-refresh_ gestures to reload data instantly.
+  - Details screen displaying stars, forks, open issues count, and repository description.
+- **Issue Tracker:**
+  - Integrated view of bugs, tasks, and enhancements.
+  - Dynamic progress bar showing the percentage of loaded issues.
+  - Interactive swipe actions to reveal details for specific issues.
+- **Fluid Navigation:** Sleek sliding menus (Drawer) and bottom tab navigation (Tabs) built on React Navigation v7.
+
+---
+
+## 🛠️ Tech Stack
+
+Built using modern hybrid mobile development tools:
 
 - **Core:** [React Native](https://reactnative.dev/) & [Expo (v54)](https://expo.dev/)
-- **Navegação:** [React Navigation (v7)](https://reactnavigation.org/) (Stack, Drawer e Bottom Tabs)
-- **Estilização:** Sistema de temas personalizados com paleta GitHub Dark Refined (baseado em tokens centralizados de estilo).
-- **Gestos & Animações:** `react-native-gesture-handler` e `react-native-reanimated`.
-- **Gerenciamento de Estado:** React Context API para controle global de autenticação e comunicação com a API do GitHub.
+- **Navigation:** [React Navigation (v7)](https://reactnavigation.org/) (Stack, Drawer, and Bottom Tabs)
+- **Styling:** Custom theme engine adhering to a refined GitHub Dark palette.
+- **Gestures & Animations:** `react-native-gesture-handler` and `react-native-reanimated`.
+- **State Management:** React Context API for global authentication state and GitHub API state.
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Folder Structure
 
-A arquitetura do projeto é dividida em pastas modulares dentro do diretório `src/`:
+The application's architecture is divided into modular directories inside the `src/` folder:
 
 ```text
 src/
-├── components/     # Componentes de interface reutilizáveis (botões, inputs, listas, etc.)
-├── context/        # Provedores de contexto para estado global (Auth e dados do GitHub)
-├── navigation/     # Estrutura de navegação (Stack, Tab e Drawer)
-├── screens/        # Telas completas da aplicação (Login, Repositórios, Issues, Perfil, etc.)
-└── styles/         # Arquivos de estilização baseados na identidade visual do GitHub
+├── components/     # Reusable UI components (buttons, inputs, lists, etc.)
+├── context/        # Context Providers for global state (Auth and GitHub data)
+├── navigation/     # Navigation configuration (Stack, Tab, and Drawer)
+├── screens/        # Screen components (Login, Repositories, Issues, Profile, etc.)
+└── styles/         # Style declarations based on the GitHub Dark palette
 ```
 
 ---
 
-## 🚀 Como Executar
+## 🚀 Getting Started
 
-### Pré-requisitos
+### Prerequisites
 
-Certifique-se de ter instalado em sua máquina:
+Make sure you have the following installed on your machine:
 
-- [Node.js](https://nodejs.org/) (versão LTS recomendada)
-- Gerenciador de pacotes `npm` ou `yarn`
-- Aplicativo **Expo Go** instalado no seu celular (iOS/Android) ou emuladores configurados.
+- [Node.js](https://nodejs.org/) (LTS version recommended)
+- Package manager `npm` or `yarn`
+- **Expo Go** application installed on your physical device (iOS/Android) or active emulators configured.
 
-### Passos para Inicialização
+### Steps to Run
 
-1. **Instalar as dependências:**
+1. **Install dependencies:**
 
    ```bash
    npm install
    ```
 
-2. **Iniciar o servidor do Expo:**
+2. **Start the Expo development server:**
 
    ```bash
    npm run start
    ```
 
-3. **Executar no dispositivo/emulador:**
-   - Escaneie o código QR exibido no terminal utilizando o aplicativo **Expo Go** no celular.
-   - Alternativamente, pressione `a` para rodar no Android, `i` para iOS, ou `w` para Web.
+3. **Open the app:**
+   - Scan the QR code shown in the terminal using the **Expo Go** app on your phone.
+   - Alternatively, press `a` to run on Android, `i` to run on iOS, or `w` to run on Web.
 
 ---
 
-## ⚙️ Configuração e Autenticação
+## ⚙️ Setup & Authentication
 
-Para utilizar todos os recursos do aplicativo e se comunicar com o GitHub, você precisará de um **Personal Access Token (PAT)**:
+To connect the application to your GitHub account:
 
-1. Vá para a página de **Developer Settings** no seu GitHub.
-2. Em **Personal Access Tokens**, clique em **Tokens (classic)** e gere um novo token.
-3. Garanta as permissões necessárias (como `repo` e `project`) para que o aplicativo consiga ler os repositórios e issues.
-4. Insira seu token na tela de login ou na página de perfil do aplicativo para se autenticar.
+1. Go to your GitHub **Settings** > **Developer Settings**.
+2. Under **Personal Access Tokens**, click on **Tokens (classic)** and generate a new token.
+3. Select the required scopes (such as `repo` and `project`) so the app can fetch your repositories and issues.
+4. Input your generated token on the app login screen or update it in the Profile page to authenticate.
