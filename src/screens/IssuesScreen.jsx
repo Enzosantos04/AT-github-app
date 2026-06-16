@@ -23,9 +23,8 @@ const IssuesScreen = () => {
       <View style={styles.headerSection}>
         <Text style={styles.title}>Issues</Text>
         <Text style={styles.subtitle}>Track bugs and tasks</Text>
+        <ProgressBarIssues current={issues.length} total={halfIssues} />
       </View>
-
-      <ProgressBarIssues current={issues.length} total={halfIssues} />
 
       <IssuesList
         issues={issues}
