@@ -18,10 +18,11 @@ import { useAuth } from "../context/AuthContext";
 const LoginScreen = ({ navigation }) => {
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const { signIn } = useAuth();
 
-  const handleLogin = () => {
-    signIn(token);
+  const handleLogin = (token, username, password) => {
+    signIn(token, username, password);
   };
 
   return (
@@ -49,6 +50,15 @@ const LoginScreen = ({ navigation }) => {
           />
 
           <Input
+            label="Password"
+            placeholder="Enter your password"
+            value={password}
+            onChangeText={setPassword}
+            autoCapitalize="none"
+            secureTextEntry
+          />
+
+          <Input
             label="Personal Access Token"
             placeholder="ghp_xxxxxxxxxxxx"
             value={token}
@@ -56,7 +66,10 @@ const LoginScreen = ({ navigation }) => {
             secureTextEntry
           />
 
-          <Button title="Sign in" onPress={handleLogin} />
+          <Button
+            title="Sign in"
+            onPress={() => handleLogin(token, username, password)}
+          />
         </View>
 
         <View style={styles.footer}>
