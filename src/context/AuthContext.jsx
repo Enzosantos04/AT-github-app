@@ -13,6 +13,10 @@ export const AuthProvider = ({ children }) => {
 
   const signIn = async (token, username, password) => {
     try {
+      if (!username || !password || !token) {
+        Alert.alert("Erro", "Todos os campos são obrigatórios.");
+        return;
+      }
       setUserToken(token);
       setUsername(username);
       setPassword(password);
@@ -65,7 +69,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, password) => {
     if (!username || !password) {
-      Alert.alert("Erro", "Nome de usuário e senha são obrigatórios.");
+      Alert.alert("Erro", "Todos os campos são obrigatórios.");
       return;
     }
 
